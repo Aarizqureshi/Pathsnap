@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PathSnap - evaluator</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>PathSnap <span>map-matching evaluator</span></h1>
+    <div class="api">
+      <label for="apiUrl">API</label>
+      <input id="apiUrl" type="text" value="http://localhost:8000" spellcheck="false">
+      <button id="connect">Connect</button>
+      <span id="status" class="status idle">not connected</span>
+    </div>
+  </header>
+
+  <main>
+    <aside>
+      <section>
+        <h2>Model</h2>
+        <table id="model" class="metrics"><tbody><tr><td class="hint">Connect to load the model details.</td></tr></tbody></table>
+      </section>
+      <section>
+        <h2>1. Choose a test set and trip</h2>
+        <select id="partition" disabled><option>connect first</option></select>
+        <div id="trips" class="trips"><p class="hint">Connect to the API to load the trips.</p></div>
+      </section>
+      <section>
+        <h2>2. Run</h2>
+        <button id="run" disabled>Predict route</button>
+        <p id="selected" class="hint">No trip selected.</p>
+      </section>
+      <section>
+        <h2>3. This trip</h2>
+        <table id="metrics" class="metrics"><tbody><tr><td class="hint">No prediction yet.</td></tr></tbody></table>
+      </section>
+      <section>
+        <h2>Overall accuracy on this test set (trips run so far)</h2>
+        <table id="overall" class="metrics"><tbody><tr><td class="hint">No trips run yet.</td></tr></tbody></table>
+      </section>
+      <section>
+        <h2>Request log</h2>
+        <ol id="log" class="log"></ol>
+      </section>
+    </aside>
+    <div id="map"></div>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
