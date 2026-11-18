@@ -1,0 +1,3 @@
+partition,nearest_arc_top1,heading_aware_nearest_top1,valid_obs
+train,0.561,0.8533,184126
+student_test,0.5415,0.8485,19119
