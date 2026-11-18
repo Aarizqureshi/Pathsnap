@@ -1,0 +1,37 @@
+{
+  "model": "rf",
+  "family": "Ensemble (bagged trees)",
+  "params": {
+    "n_estimators": 57,
+    "max_leaf_nodes": 962,
+    "min_samples_leaf": 14,
+    "max_features": 0.5
+  },
+  "features": [
+    "dist_m",
+    "dist_rank",
+    "dist_minus_best_m",
+    "n_candidates",
+    "heading_diff_deg",
+    "heading_valid",
+    "speed_ms",
+    "turn_rate_dps",
+    "arc_length_m",
+    "off_segment",
+    "prev_dist_m",
+    "next_dist_m",
+    "context_mean_dist_m",
+    "end_out_degree",
+    "dt_prev_s"
+  ],
+  "trained_on": "all valid train observations (label_valid == 1)",
+  "train_rows": 1303417,
+  "random_seed": 42,
+  "sklearn_version": "1.7.2",
+  "file_size_mb": 4.2,
+  "student_test": {
+    "test_top1": 0.8721167425074533,
+    "test_f1_macro": 0.9075167160697327,
+    "test_log_loss": 0.11716834065372043
+  }
+}
