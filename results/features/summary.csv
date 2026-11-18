@@ -1,0 +1,3 @@
+partition,trips,observations,candidate_rows,mean_candidates_per_obs,valid_obs,positive_rows,negative_rows,candidate_miss_rate,obs_using_fallback,seconds
+train,80,208417,1557572,7.473,184126,183632,1119785,0.00268,18121,76.3
+student_test,10,19160,147050,7.675,19119,19108,127794,0.00058,0,5.7
