@@ -1,0 +1,22 @@
+# raw and generated data (too large / not ours to redistribute)
+data/raw/
+data/processed/
+Student folder/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# secrets
+.env
+*.log
