@@ -21,6 +21,10 @@ PROCESSED_DIR = Path(os.environ.get("PATHSNAP_PROCESSED", REPO_ROOT / "data" / "
 RESULTS_DIR = REPO_ROOT / "results"
 FIGURES_DIR = RESULTS_DIR / "figures"
 MAPS_DIR = REPO_ROOT / "maps"
+MODELS_DIR = REPO_ROOT / "models"
+CONFIGS_DIR = REPO_ROOT / "configs"
+FINAL_MODEL_PATH = MODELS_DIR / "final_model.joblib"
+HMM_CONFIG_PATH = CONFIGS_DIR / "hmm.json"
 
 PARTITIONS = ("train", "student_test")
 
@@ -81,3 +85,27 @@ FEATURE_COLUMNS = [
     "end_out_degree",
     "dt_prev_s",
 ]
+
+# ------------------------------------------------------------- modelling
+CV_FOLDS = 5                 # GroupKFold by trip on the train partition
+# Share of train observations (all candidates of each sampled observation)
+# used for cross-validation, so all five models see the same rows and the
+# comparison finishes on a laptop. Final fits use all valid train rows.
+CV_OBS_FRAC = 0.25
+# Instance/kernel methods scale badly with rows; their training sets are capped.
+MAX_TRAIN_ROWS = {"knn": 200_000, "svm_rbf": 20_000}
+
+# Bayesian optimisation (Optuna TPE)
+TUNE_OBS_FRAC = 0.10
+TUNE_FOLDS = 3
+TUNE_TRIALS = 25
+
+# ------------------------------------------------------------- HMM / Viterbi
+HMM_DEFAULTS = {
+    "beta_m": 10.0,          # scale of |route distance - straight-line distance| (Newson & Krumm)
+    "emission_weight": 1.0,  # weight of log classifier probability vs transition
+    "max_detour_m": 150.0,   # route search stops this far beyond the straight-line distance
+    "min_prob": 1e-6,
+}
+HMM_GRID = {"beta_m": [3.0, 5.0, 10.0, 20.0, 40.0], "emission_weight": [0.5, 1.0, 2.0]}
+HMM_TUNE_HOLDOUT_TRIPS = 16  # train trips held out to tune the decoder

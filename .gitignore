@@ -20,3 +20,7 @@ Thumbs.db
 # secrets
 .env
 *.log
+
+# trained models: only the final model is committed
+models/*.joblib
+!models/final_model.joblib
