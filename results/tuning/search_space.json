@@ -1,0 +1,31 @@
+{
+  "model": "rf",
+  "space": {
+    "n_estimators": [
+      "int",
+      50,
+      200,
+      false
+    ],
+    "max_leaf_nodes": [
+      "int",
+      256,
+      4096,
+      true
+    ],
+    "min_samples_leaf": [
+      "int",
+      5,
+      100,
+      true
+    ],
+    "max_features": [
+      "cat",
+      [
+        "sqrt",
+        "log2",
+        0.5
+      ]
+    ]
+  }
+}

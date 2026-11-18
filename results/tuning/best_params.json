@@ -1,0 +1,14 @@
+{
+  "model": "rf",
+  "best_params": {
+    "n_estimators": 57,
+    "max_leaf_nodes": 962,
+    "min_samples_leaf": 14,
+    "max_features": 0.5
+  },
+  "best_cv_top1": 0.8808607394734741,
+  "objective": "mean top-1 accuracy, 3-fold GroupKFold, 10% observation sample of valid train rows",
+  "sampler": "Optuna TPESampler(seed=42)",
+  "n_trials": 25,
+  "search_seconds": 316.299973999965
+}

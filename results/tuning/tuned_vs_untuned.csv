@@ -1,0 +1,3 @@
+model,cv_f1_macro,cv_top1,cv_log_loss,test_top1,test_f1_macro,test_precision_macro,test_recall_macro,test_log_loss,fit_s,inference_s,train_rows
+rf (untuned),0.91538,0.87727,0.11098,0.87170,0.90904,0.87554,0.95407,0.12117,77.94023,0.29526,1303417
+rf (tuned),0.91358,0.87888,0.11179,0.87212,0.90752,0.87285,0.95480,0.11717,40.37048,0.07529,1303417
