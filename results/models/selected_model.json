@@ -1,0 +1,46 @@
+{
+  "selected": "rf",
+  "rule": "highest mean CV top-1 accuracy (GroupKFold by trip), tie-break lower CV log loss",
+  "ranking": [
+    {
+      "model": "rf",
+      "cv_top1_mean": 0.87727,
+      "cv_f1_macro_mean": 0.91538,
+      "cv_log_loss_mean": 0.11098,
+      "test_top1": 0.8717,
+      "test_f1_macro": 0.90904
+    },
+    {
+      "model": "svm_rbf",
+      "cv_top1_mean": 0.87642,
+      "cv_f1_macro_mean": 0.91432,
+      "cv_log_loss_mean": 0.11307,
+      "test_top1": 0.87567,
+      "test_f1_macro": 0.91733
+    },
+    {
+      "model": "knn",
+      "cv_top1_mean": 0.87579,
+      "cv_f1_macro_mean": 0.91945,
+      "cv_log_loss_mean": 0.11468,
+      "test_top1": 0.8718,
+      "test_f1_macro": 0.92017
+    },
+    {
+      "model": "logreg",
+      "cv_top1_mean": 0.8739,
+      "cv_f1_macro_mean": 0.88755,
+      "cv_log_loss_mean": 0.17237,
+      "test_top1": 0.87369,
+      "test_f1_macro": 0.89018
+    },
+    {
+      "model": "gnb",
+      "cv_top1_mean": 0.85694,
+      "cv_f1_macro_mean": 0.79059,
+      "cv_log_loss_mean": 0.74443,
+      "test_top1": 0.84544,
+      "test_f1_macro": 0.78903
+    }
+  ]
+}

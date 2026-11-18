@@ -1,0 +1,47 @@
+{
+  "logreg": {
+    "family": "Linear / probabilistic",
+    "defaults": {
+      "C": 1.0
+    },
+    "notes": "StandardScaler + L2 logistic regression, class_weight=balanced, lbfgs",
+    "max_train_rows": null
+  },
+  "gnb": {
+    "family": "Probabilistic (generative)",
+    "defaults": {
+      "var_smoothing": 1e-09
+    },
+    "notes": "Gaussian Naive Bayes, class priors from data, no scaling needed",
+    "max_train_rows": null
+  },
+  "knn": {
+    "family": "Instance-based",
+    "defaults": {
+      "n_neighbors": 50,
+      "weights": "distance"
+    },
+    "notes": "StandardScaler + KNN (euclidean), trained on a capped row sample",
+    "max_train_rows": 200000
+  },
+  "rf": {
+    "family": "Ensemble (bagged trees)",
+    "defaults": {
+      "n_estimators": 150,
+      "max_leaf_nodes": 2048,
+      "min_samples_leaf": 10,
+      "max_features": "sqrt"
+    },
+    "notes": "Random forest, class_weight=balanced_subsample, n_jobs=-1; max_leaf_nodes bounds tree size so the deployed model stays small (an unbounded forest on 1.3M rows grows to GBs)",
+    "max_train_rows": null
+  },
+  "svm_rbf": {
+    "family": "Kernel-based",
+    "defaults": {
+      "C": 1.0,
+      "gamma": 0.066667
+    },
+    "notes": "StandardScaler + RBF SVC, Platt (sigmoid) calibration with 3-fold CV, class_weight=balanced, capped rows; gamma = 1/n_features, equivalent to sklearn's 'scale' on standardised features",
+    "max_train_rows": 20000
+  }
+}
