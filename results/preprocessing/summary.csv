@@ -1,0 +1,3 @@
+partition,trips,raw_obs,dropped_invalid,dropped_duplicate_t,dropped_spikes,clean_obs,total_gaps,trips_not_sorted,median_align_dist_m,mean_route_continuity,obs_label_valid,obs_label_valid_frac
+student_test,10,19160,0,0,0,19160,27,0,4.744671140171197,0.9997319034852546,19119,0.9979
+train,80,208417,0,0,0,208417,590,0,4.628969555133903,0.9993461551444497,184126,0.8835
