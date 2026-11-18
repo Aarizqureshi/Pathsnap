@@ -3,7 +3,7 @@
 | Laptop | Runs | Needs |
 |---|---|---|
 | 1: model + API | `start_api.bat` (FastAPI + uvicorn on port 8000) | repo, `pip install -r requirements.txt`, the evaluation trips, `models/final_model.joblib`, `configs/hmm.json` |
-| 2: UI | `start_ui.bat` (static page on port 8080) | repo (only the `ui/` folder is used), Python for `http.server`, a browser with internet for the map tiles and Leaflet |
+| 2: UI | a browser only: open `http://<laptop-1 IP>:8000/` (the API serves the UI) | internet for the map tiles and Leaflet |
 
 ## Laptop 1
 
@@ -20,9 +20,15 @@
 
 ## Laptop 2
 
-1. `start_ui.bat`, then open `http://localhost:8080`.
-2. Enter `http://<laptop-1 IPv4>:8000`, press **Connect**. The model panel shows the classifier, the decoder and their student-test accuracy.
-3. Choose the test set in the dropdown, pick a trip, press **Predict route**. The map shows the GPS points and the predicted route. "This trip" shows server-side metrics for classifier-only vs classifier + HMM. "Overall accuracy" pools every trip run so far on that test set (correct / total points).
+1. Open any browser at `http://<laptop-1 IPv4>:8000/`. The API on laptop 1 serves the UI itself, so laptop 2 needs no repo, no Python and no address to type. The page connects automatically. The model panel shows the classifier, the decoder and their student-test accuracy.
+2. Choose the test set in the dropdown, pick a trip, press **Predict route**. The map shows the GPS points and the predicted route. "This trip" shows server-side metrics for classifier-only vs classifier + HMM. "Overall accuracy" pools every trip run so far on that test set (correct / total points).
+3. Alternative (UI on its own web server): `start_ui.bat` on laptop 2, open `http://localhost:8080`, enter `http://<laptop-1 IPv4>:8000` and press **Connect**. Some browsers block this cross-address call or force it to https, so the first option is preferred.
+
+## Troubleshooting
+
+* Use laptop 1's Wi-Fi IPv4 address from `ipconfig`, not a `vEthernet (WSL)` / Hyper-V address.
+* `http://<ip>:8000/health` must open on laptop 2. If not: same network on both (college Wi-Fi often blocks laptop-to-laptop traffic; use one phone hotspot), and allow port 8000 in the firewall (`netsh advfirewall firewall add rule name="PathSnap API" dir=in action=allow protocol=TCP localport=8000` as Administrator).
+* "Invalid HTTP request received" in the API window means a browser sent https: type `http://`, and turn off Firefox HTTPS-Only Mode / Chrome "Always use secure connections".
 
 ## What crosses the network
 
@@ -33,6 +39,6 @@
 ## Checklist before the evaluation
 
 - [ ] `python tests\test_hmm.py` passes on laptop 1
-- [ ] `http://<ip>:8000/health` opens in laptop 2's browser
+- [ ] `http://<ip>:8000/` opens the UI in laptop 2's browser and connects
 - [ ] All ten evaluation trips run once from the UI without errors
 - [ ] Both laptops are on the same Wi-Fi or hotspot; the firewall allows port 8000

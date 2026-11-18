@@ -5,6 +5,8 @@ Endpoints
   GET  /partitions                   test partitions the UI may offer (never train)
   GET  /trips?partition=...          trip ids in one partition
   GET  /model-info                   final model, decoder and its development accuracy
+  GET  /                             redirects to /ui/: the evaluator UI served by this same server, so
+                                     laptop 2 only needs a browser: http://<laptop-1 IP>:8000/
   POST /predict                      {"trip_id": "...", "partition": "..."}
                                      -> predicted route + server-side metrics
                                         + running overall accuracy for that partition
@@ -38,6 +40,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from pathsnap import config
@@ -48,6 +52,7 @@ from pathsnap.io import list_trip_dirs, load_trip
 REQUESTED = [p.strip() for p in os.environ.get("PATHSNAP_PARTITIONS", "student_test,evaluator_test").split(",")
              if p.strip()]
 FORBIDDEN = {"train"}  # training trips are never served
+UI_DIR = Path(__file__).resolve().parents[1] / "ui"
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s",
                     datefmt="%H:%M:%S")
@@ -148,6 +153,11 @@ app = FastAPI(title="PathSnap API", version="1.1", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "POST"], allow_headers=["*"])
 
 
+@app.get("/", include_in_schema=False)
+def root():
+    return RedirectResponse(url="/ui/")
+
+
 class PredictRequest(BaseModel):
     trip_id: str
     partition: str = "student_test"
@@ -223,3 +233,8 @@ def predict(req: PredictRequest):
         "timings_s": {k: round(v, 3) for k, v in {**info["timings"], "prediction_total": t_pred,
                                                   "request_total": total}.items()},
     }
+
+
+# Serve the evaluator UI from this server (same origin: no CORS, no second web server needed).
+if UI_DIR.is_dir():
+    app.mount("/ui", StaticFiles(directory=str(UI_DIR), html=True), name="ui")

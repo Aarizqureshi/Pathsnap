@@ -99,7 +99,7 @@ On Windows, `run_pipeline.bat "C:\path\to\Student folder"` runs all steps in ord
 ## Deployment (evaluation day)
 
 * Laptop 1: `start_api.bat "<data folder>"` starts the API on port 8000, offers `student_test` and `evaluator_test` in the UI dropdown and logs every request.
-* Laptop 2: `start_ui.bat`, then open `http://localhost:8080` and connect to `http://<laptop-1 IP>:8000`.
+* Laptop 2: open `http://<laptop-1 IP>:8000/` in any browser. The API serves the UI and it connects automatically (`start_ui.bat` remains as an alternative).
 
 Details and a checklist are in `docs/deployment.md`.
 

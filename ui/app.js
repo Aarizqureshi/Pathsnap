@@ -3,7 +3,13 @@
   const $ = (id) => document.getElementById(id);
   const state = { api: "", partition: null, trip: null, layers: [], done: {} };
 
-  try { const saved = localStorage.getItem("pathsnapApi"); if (saved) $("apiUrl").value = saved; } catch (e) { /* storage unavailable */ }
+  // When this page is served by the API itself (http://<laptop-1 IP>:8000/ui/), talk to that same server.
+  const servedByApi = location.pathname.startsWith("/ui");
+  if (servedByApi) {
+    $("apiUrl").value = location.origin;
+  } else {
+    try { const saved = localStorage.getItem("pathsnapApi"); if (saved) $("apiUrl").value = saved; } catch (e) { /* storage unavailable */ }
+  }
 
   const map = L.map("map", { preferCanvas: true }).setView([20, 0], 2);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -181,4 +187,6 @@
        pct(o.top1_hmm) + frac(o.n_correct_hmm, o.n_valid)],
     ]);
   }
+
+  if (servedByApi) $("connect").click();   // connect automatically to the server that served this page
 })();
