@@ -1,0 +1,30 @@
+{
+  "params": {
+    "beta_m": 3.0,
+    "emission_weight": 1.0,
+    "max_detour_m": 150.0,
+    "min_prob": 1e-06
+  },
+  "tuned_on": "16 held-out train trips, model refitted on the remaining train trips",
+  "holdout_trips": [
+    "00000006",
+    "00000008",
+    "00000019",
+    "00000036",
+    "00000047",
+    "00000053",
+    "00000062",
+    "00000063",
+    "00000070",
+    "00000074",
+    "00000075",
+    "00000079",
+    "00000085",
+    "00000092",
+    "00000093",
+    "00000098"
+  ],
+  "selection": "highest pooled top-1 (HMM) on held-out trips, tie-break 3-hop continuity",
+  "holdout_top1_hmm": 0.9496240408550825,
+  "holdout_top1_classifier": 0.8897528678112249
+}
